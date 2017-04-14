@@ -34,5 +34,18 @@
     <input type="file" name="userprofile_picture"  id="filePhoto" />
 </div>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	var imageLoader = document.getElementById('filePhoto');
+    imageLoader.addEventListener('change', handleImage, false);
+
+function handleImage(e) {
+    var reader = new FileReader();
+    reader.onload = function (event) {
+        
+        $('.uploader img').attr('src',event.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
+</script>
 </body>
 </html>
