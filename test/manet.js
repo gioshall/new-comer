@@ -45,7 +45,7 @@ describe('manet', function () {
     }
 
     function checkApiCall(q, ct) {
-        const params = _.defaults(q || {}, { url: 'http://needsupply.com/' }),
+        const params = _.defaults(q || {}, { url: 'google.com' }),
               apiUrl = '/?' + querystring.stringify(params),
               contentType = ct || 'image/png',
               dataType = 'binary';
