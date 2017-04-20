@@ -2,61 +2,207 @@
 <html>
 <head>
 	<title>new comer</title>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
 </head>
 <style>
 body {
+    margin: 0;
+    padding: 0;
     width: 980px;
     height: 460px;
-    background-color: #666;
+    background-color: #efefef;
+    font-family: 'Helvetica', "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 'Arial', 'sans-serif';
 }
+
+.main {
+    width: 960px;
+    height: 640px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);  
+}
+
+.logo-nogle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 15;
+    width: 100px;
+}
+
+.image-block {
+    position: relative;
+    text-align: center;
+    width:480px; 
+    height:640px;
+}
+
 
 .uploader {
-    position:relative; 
-    overflow:hidden; 
-    width:300px; 
-    height:350px; 
-    background:#f3f3f3; 
-    border:2px dashed #e8e8e8;
+    overflow:hidden;  
 }
 
+.uploader.bg {
+    width:480px; 
+    height:640px;
+    background-color: rgb(0, 72, 139); 
+}
+
+.uploader h3 {
+    position: relative;  
+    color: #ccc;
+    font-size: 14px;
+    padding-top: 550px;
+    font-weight: 100;
+    z-index: 3;
+}
+
+#fileBg,
+#filePhoto,
+.uploader img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+#fileBg,
 #filePhoto {
-    position:absolute;
-    width:300px;
-    height:400px;
-    top:-50px;
-    left:0;
-    z-index:2;
-    opacity:0;
-    cursor:pointer;
+    z-index: 10;
+    opacity: 0;
+    border: 0;
+    outline: none;
+    cursor: pointer;
 }
 
 .uploader img {
-    position:absolute;
-    width:302px;
-    height:352px;
-    top:-1px;
-    left:-1px;
     z-index:1;
     border:none;
+    display: none;
+    object-fit: cover;
+    
 }
+.uploader.bg img {
+    height: 640px;
+    width: 100%;
+    mix-blend-mode: screen;
+}
+.uploader.bg:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: rgba(0, 72, 139, 0.3);
+    mix-blend-mode: multiply;
+}
+
+.uploader.portrait {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #333;
+    position: absolute;
+    top: 150px;
+    left: calc(50% - 75px);
+    z-index: 10;
+}
+
+.info {
+    position: absolute;
+    top: 320px;
+    z-index: 10;
+    text-align: center;
+    width: 250px;
+    left: calc(50% - 125px);
+}
+
+.info input {
+    width: 250px;
+    margin: auto;
+    text-align: center;
+    font-weight: 100;
+    box-sizing: border-box;
+}
+
+.info input:focus {
+    outline: none;
+    border-bottom: 1px dotted rgba(255,255,255,0.5) !important;
+}
+
+.info input::-webkit-input-placeholder {
+    color: #f5f5f5;
+}
+
+.info input.name {
+    background: transparent;
+    border: 0;
+    outline: none;
+    font-size: 21px;
+    color: #fff;
+    margin: 15px 0;
+    font-weight: 400;
+}
+
+.info input.title {
+    background: #014885;
+    border: 0;
+    outline: none;
+    font-size: 15px;
+    color: #fff;
+    padding: 8px 10px;
+}
+
 </style>
 <body>
 
-<div class="uploader" onclick="$('#filePhoto').click()">
-    click here or drag here your images for preview and set userprofile_picture data
-    <img src=""/>
-    <input type="file" name="userprofile_picture"  id="filePhoto" />
+
+<div class="main">
+<div class="image-block">
+    <!-- <img src="src/images/logo.png" class="logo-nogle"> -->
+    <div class="uploader bg" onclick="$('#filePhoto').click()">
+        <h3>click or drop to upload background image</h3>
+        <input type="file" name="userprofile_picture"  id="fileBg" />
+        <img src=""/>
+        
+    </div>
+    <div class="uploader portrait" onclick="$('#filePhoto').click()">
+        <h3>click or drop to upload background image</h3>
+        <input type="file" name="userprofile_picture"  id="filePhoto" />
+        <img src=""/>     
+    </div>
+    <div class="info">
+        <input type="text" class="name" placeholder="name">
+        <input type="text" class="title" placeholder="title">
+    </div>
+    
 </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
-	var imageLoader = document.getElementById('filePhoto');
-    imageLoader.addEventListener('change', handleImage, false);
+var imageBg = document.getElementById('fileBg');
+var imagePhoto = document.getElementById('filePhoto');
+imageBg.addEventListener('change', fileBg, false);
+imagePhoto.addEventListener('change', filePhoto, false);
 
-function handleImage(e) {
+function fileBg(e) {
     var reader = new FileReader();
     reader.onload = function (event) {
-        
-        $('.uploader img').attr('src',event.target.result);
+        $('.uploader.bg img').attr('src',event.target.result).show();
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
+function filePhoto(e) {
+    var reader = new FileReader();
+    reader.onload = function (event) {
+        $('.uploader.portrait img').attr('src',event.target.result).show();
     }
     reader.readAsDataURL(e.target.files[0]);
 }
