@@ -4,9 +4,22 @@
 	<title>new comer</title>
 </head>
 <style>
-.uploader {position:relative; overflow:hidden; width:300px; height:350px; background:#f3f3f3; border:2px dashed #e8e8e8;}
+body {
+    width: 980px;
+    height: 460px;
+    background-color: #666;
+}
 
-#filePhoto{
+.uploader {
+    position:relative; 
+    overflow:hidden; 
+    width:300px; 
+    height:350px; 
+    background:#f3f3f3; 
+    border:2px dashed #e8e8e8;
+}
+
+#filePhoto {
     position:absolute;
     width:300px;
     height:400px;
@@ -17,7 +30,7 @@
     cursor:pointer;
 }
 
-.uploader img{
+.uploader img {
     position:absolute;
     width:302px;
     height:352px;
@@ -28,6 +41,7 @@
 }
 </style>
 <body>
+
 <div class="uploader" onclick="$('#filePhoto').click()">
     click here or drag here your images for preview and set userprofile_picture data
     <img src=""/>
